@@ -13,7 +13,7 @@ class RedisClient {
 
 
     isAlive(){
-        return this.client.isOpen;
+        return this.client.connected;
     }
 
     async get(key) {
@@ -21,7 +21,7 @@ class RedisClient {
     }
 
     async set(key, value, duration) {
-       await this.client.set(key, value, {EX: duration})
+       await this.client.setex(key, value, duration)
     }
 
     async del(key) {
