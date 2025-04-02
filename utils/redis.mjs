@@ -1,8 +1,8 @@
-import { createClient } from "redis"
+const redis = require('redis')
 
 class RedisClient {
     constructor() {
-        this.client = createClient();
+        this.client = redis.createClient();
 
         this.client.on("error", (err) => {
             console.error(`Redis client error: ${err}`)
@@ -13,7 +13,7 @@ class RedisClient {
 
 
     isAlive(){
-        return this.client.connected;
+        return this.client.isOpen;
     }
 
     async get(key) {
@@ -21,7 +21,7 @@ class RedisClient {
     }
 
     async set(key, value, duration) {
-       await this.client.setex(key, value, duration)
+       await this.client.set(key, value, {EX: duration})
     }
 
     async del(key) {
