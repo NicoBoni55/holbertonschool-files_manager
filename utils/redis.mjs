@@ -1,4 +1,5 @@
 import {createClient} from 'redis';
+import {promisify} from 'util'
 
 class RedisClient {
     constructor() {
@@ -8,42 +9,26 @@ class RedisClient {
             console.error(`Redis client error: ${err}`)
         });
 
-        this.connected = false;
-
-        this.client.connect().then(() => {
-            this.connected = true;
-        }).catch((err) => {
-            console.error(`Redis connection failed: ${err}`)
-        })
+        this.getAsync = promisify(this.client.get).bind(this.client);
+        this.setAsync = promisify(this.client.set).bind(this.client);
+        this.delAsync = promisify(this.client.del).bind(this.client);
     }
 
 
     isAlive(){
-        return this.client.isOpen;
+        return this.client.connected;
     }
 
     async get(key) {
-        try {
-            return await this.client.get(key)
-        } catch (err) {
-           console.error(`Get failed ${err}`) 
-        }
+        return this.getAsync(key)
     }
 
     async set(key, value, duration) {
-        try {
-            await this.client.set(key, value, {EX: duration})
-        } catch (err) {
-            console.error(`Set failed ${err}`)
-        }
+        return this.setAsync(key, value, {EX: duration})
     }
 
     async del(key) {
-        try {
-            await this.client.del(key)
-        } catch (err) {
-            console.error(`Del failed ${err}`)
-        }
+       return this.delAsync(key)
     }
 }
 
