@@ -1,0 +1,12 @@
+[0;1;31m●[0m mongod.service - MongoDB Database Server
+     Loaded: loaded (/etc/systemd/system/mongod.service; enabled; vendor preset: enabled)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Thu 2025-04-10 19:04:48 -03; 2s ago
+       Docs: https://docs.mongodb.org/manual
+    Process: 291505 ExecStart=/usr/bin/mongod --config /etc/mongod.conf [0;1;31m(code=exited, status=1/FAILURE)[0m
+   Main PID: 291505 (code=exited, status=1/FAILURE)
+
+Apr 10 19:04:48 H142 systemd[1]: mongod.service: Scheduled restart job, restart counter is at 5.
+Apr 10 19:04:48 H142 systemd[1]: Stopped MongoDB Database Server.
+Apr 10 19:04:48 H142 systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185mmongod.service: Start request repeated too quickly.[0m
+Apr 10 19:04:48 H142 systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185mmongod.service: Failed with result 'exit-code'.[0m
+Apr 10 19:04:48 H142 systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start MongoDB Database Server.[0m
